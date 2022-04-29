@@ -27,7 +27,6 @@ struct Yigin {
 
 void yiginCikar(Yigin*);
 void siraliEkle(Yigin*, int);
-static int sayac = 0;
 
 int main()
 {
@@ -43,10 +42,8 @@ int main()
     st->yazdir();
 
     cout << endl <<"   ---yiginCikar fonksiyon cagrisi---" << endl;
-
-    for (int i = 0;i < sayac;i++)
-        yiginCikar(st);
-
+    yiginCikar(st);
+   
     cout << endl<< "   Sirali Yigin" << endl;
     siraliEkle(st, 3);
     siraliEkle(st, 1);
@@ -61,6 +58,7 @@ void yiginCikar(Yigin* s) {
     if (s->bosMu())
         return;
     s->cikar();
+    yiginCikar(s);
 }
 void siraliEkle(Yigin* s, int x)
 {
@@ -77,7 +75,6 @@ void Yigin::olustur() {
     k1.bas = NULL;
 }
 void Yigin::kapat(){
-    sayac = 0;
     Dugum* p;
     while (k1.bas) {
         p = k1.bas;
@@ -96,7 +93,6 @@ void Yigin::ekle(int x) {
     temp = k1;
     k1 = k2;
     k2 = temp;
-    sayac++;
 }
 int  Yigin::cikar() {
     Dugum* ustDugum;
