@@ -27,11 +27,13 @@ struct Yigin {
 
 void yiginCikar(Yigin*);
 void siraliEkle(Yigin*, int);
+static int sayac = 0;
 
 int main()
 {
     Yigin* st = new Yigin();
-    cout << "Orjinal Yigin" << endl;
+
+    cout << endl << "   Orjinal Yigin" << endl;
     st->olustur();
     st->ekle(3);
     st->ekle(1);
@@ -39,30 +41,26 @@ int main()
     st->ekle(4);
     st->ekle(8);
     st->yazdir();
-    //st->kapat();
-    cout << endl;
-    cout << "-------------------"<<endl;
-    cout << "yiginCikar Fonksiyon cagrisi" << endl;
-    cout << "-------------------" << endl;
-    cout << endl;
-    cout << "Siralanmis Yigin" << endl;
-    //cout << endl;
-    //st->tepe();
-    st->olustur();
-    yiginCikar(st);
+
+    cout << endl <<"   ---yiginCikar fonksiyon cagrisi---" << endl;
+
+    for (int i = 0;i < sayac;i++)
+        yiginCikar(st);
+
+    cout << endl<< "   Sirali Yigin" << endl;
     siraliEkle(st, 3);
     siraliEkle(st, 1);
     siraliEkle(st, 7);
     siraliEkle(st, 4);
     siraliEkle(st, 8);
     st->yazdir();
+    st->kapat();
 }
 
 void yiginCikar(Yigin* s) {
     if (s->bosMu())
         return;
     s->cikar();
-    
 }
 void siraliEkle(Yigin* s, int x)
 {
@@ -70,18 +68,16 @@ void siraliEkle(Yigin* s, int x)
         s->ekle(x);
         return;
     }
-
-    // If top is greater, remove the top item and recur
     int temp = s->cikar();
     siraliEkle(s, x);
     s->ekle(temp);
 }
 
 void Yigin::olustur() {
-    //tepe = 0;
     k1.bas = NULL;
 }
 void Yigin::kapat(){
+    sayac = 0;
     Dugum* p;
     while (k1.bas) {
         p = k1.bas;
@@ -90,7 +86,6 @@ void Yigin::kapat(){
     }
 }
 void Yigin::ekle(int x) {
-   // Dugum* bas;
     Kuyruk temp;
     k2.ekle(x);
     while (!k1.bosMu())
@@ -101,11 +96,9 @@ void Yigin::ekle(int x) {
     temp = k1;
     k1 = k2;
     k2 = temp;
+    sayac++;
 }
 int  Yigin::cikar() {
-    if (k1.bosMu())
-        return -1;
-   // k1.cikar();
     Dugum* ustDugum;
     int gecici;
     ustDugum = k1.bas;
@@ -124,9 +117,10 @@ void Yigin::yazdir() {
     Dugum* tara;
     tara = k1.bas;
     if (!tara) {
-        cout << "empty" << endl;
+        cout << "Yigin bos" << endl;
         return;
     }
+    cout << "   ";
     while (tara) {
         cout << tara->veri << " ";
         tara = tara->sonraki;
